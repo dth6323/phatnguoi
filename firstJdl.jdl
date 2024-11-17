@@ -1,12 +1,12 @@
 entity CCCD {
   fullName String,
-  dateBirth Instant,
+  dateBirth LocalDate,
   sex String,
   nationality String,
   placeOrigin String,
   placeResidence String,
-  dateIssue Instant,
-  dateExpiry Instant,
+  dateIssue LocalDate,
+  dateExpiry LocalDate,
   personalIdentification String
 }
 
@@ -20,8 +20,8 @@ entity VehicleRegistrations {
   modelCode String,
   color String,
   capacity String,
-  registrationDate Instant,
-  expirationDate Instant,
+  registrationDate LocalDate,
+  expirationDate LocalDate,
   issuedBy String
 }
 entity TypeViolation {
@@ -30,17 +30,15 @@ entity TypeViolation {
 }
 
 entity Violations {
-  violationTime Instant,
+  violationTime LocalDate,
   location String,
   status String,
   evidenceImage String,
-  createdAt Instant
+  createdAt LocalDate
 }
-
 relationship ManyToOne {
-  CCCD to VehicleRegistrations
-  TypeViolation to Violations
+  Violations to TypeViolation
+  VehicleRegistrations to CCCD
+  Violations to VehicleRegistrations
 }
-relationship ManyToMany{
-  VehicleRegistrations to Violations
-}
+paginate Violations,TypeViolation,CCCD,VehicleRegistrations with pagination
