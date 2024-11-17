@@ -1,0 +1,147 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-cccd-heading" data-cy="CCCDCreateUpdateHeading" jhiTranslate="phatnguoiApp.cCCD.home.createOrEditLabel">
+        Create or edit a CCCD
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="phatnguoiApp.cCCD.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_fullName" jhiTranslate="phatnguoiApp.cCCD.fullName">Full Name</label>
+          <input type="text" class="form-control" name="fullName" id="field_fullName" data-cy="fullName" formControlName="fullName" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_dateBirth" jhiTranslate="phatnguoiApp.cCCD.dateBirth">Date Birth</label>
+          <div class="input-group">
+            <input
+              id="field_dateBirth"
+              data-cy="dateBirth"
+              type="text"
+              class="form-control"
+              name="dateBirth"
+              ngbDatepicker
+              #dateBirthDp="ngbDatepicker"
+              formControlName="dateBirth"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateBirthDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_sex" jhiTranslate="phatnguoiApp.cCCD.sex">Sex</label>
+          <input type="text" class="form-control" name="sex" id="field_sex" data-cy="sex" formControlName="sex" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_nationality" jhiTranslate="phatnguoiApp.cCCD.nationality">Nationality</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nationality"
+            id="field_nationality"
+            data-cy="nationality"
+            formControlName="nationality"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_placeOrigin" jhiTranslate="phatnguoiApp.cCCD.placeOrigin">Place Origin</label>
+          <input
+            type="text"
+            class="form-control"
+            name="placeOrigin"
+            id="field_placeOrigin"
+            data-cy="placeOrigin"
+            formControlName="placeOrigin"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_placeResidence" jhiTranslate="phatnguoiApp.cCCD.placeResidence">Place Residence</label>
+          <input
+            type="text"
+            class="form-control"
+            name="placeResidence"
+            id="field_placeResidence"
+            data-cy="placeResidence"
+            formControlName="placeResidence"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_dateIssue" jhiTranslate="phatnguoiApp.cCCD.dateIssue">Date Issue</label>
+          <div class="input-group">
+            <input
+              id="field_dateIssue"
+              data-cy="dateIssue"
+              type="text"
+              class="form-control"
+              name="dateIssue"
+              ngbDatepicker
+              #dateIssueDp="ngbDatepicker"
+              formControlName="dateIssue"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateIssueDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_dateExpiry" jhiTranslate="phatnguoiApp.cCCD.dateExpiry">Date Expiry</label>
+          <div class="input-group">
+            <input
+              id="field_dateExpiry"
+              data-cy="dateExpiry"
+              type="text"
+              class="form-control"
+              name="dateExpiry"
+              ngbDatepicker
+              #dateExpiryDp="ngbDatepicker"
+              formControlName="dateExpiry"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateExpiryDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_personalIdentification" jhiTranslate="phatnguoiApp.cCCD.personalIdentification"
+            >Personal Identification</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="personalIdentification"
+            id="field_personalIdentification"
+            data-cy="personalIdentification"
+            formControlName="personalIdentification"
+          />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

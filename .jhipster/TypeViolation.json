@@ -1,0 +1,28 @@
+{
+  "annotations": {
+    "changelogDate": "20241117152029"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "violationName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fineAmount",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "name": "TypeViolation",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "violations",
+      "otherEntityRelationshipName": "typeViolation",
+      "relationshipName": "violations",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no"
+}

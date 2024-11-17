@@ -1,0 +1,130 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-violations-heading" data-cy="ViolationsCreateUpdateHeading" jhiTranslate="phatnguoiApp.violations.home.createOrEditLabel">
+        Create or edit a Violations
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="phatnguoiApp.violations.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_violationTime" jhiTranslate="phatnguoiApp.violations.violationTime">Violation Time</label>
+          <div class="input-group">
+            <input
+              id="field_violationTime"
+              data-cy="violationTime"
+              type="text"
+              class="form-control"
+              name="violationTime"
+              ngbDatepicker
+              #violationTimeDp="ngbDatepicker"
+              formControlName="violationTime"
+            />
+            <button type="button" class="btn btn-secondary" (click)="violationTimeDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_location" jhiTranslate="phatnguoiApp.violations.location">Location</label>
+          <input type="text" class="form-control" name="location" id="field_location" data-cy="location" formControlName="location" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_status" jhiTranslate="phatnguoiApp.violations.status">Status</label>
+          <input type="text" class="form-control" name="status" id="field_status" data-cy="status" formControlName="status" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_evidenceImage" jhiTranslate="phatnguoiApp.violations.evidenceImage">Evidence Image</label>
+          <input
+            type="text"
+            class="form-control"
+            name="evidenceImage"
+            id="field_evidenceImage"
+            data-cy="evidenceImage"
+            formControlName="evidenceImage"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdAt" jhiTranslate="phatnguoiApp.violations.createdAt">Created At</label>
+          <div class="input-group">
+            <input
+              id="field_createdAt"
+              data-cy="createdAt"
+              type="text"
+              class="form-control"
+              name="createdAt"
+              ngbDatepicker
+              #createdAtDp="ngbDatepicker"
+              formControlName="createdAt"
+            />
+            <button type="button" class="btn btn-secondary" (click)="createdAtDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_typeViolation" jhiTranslate="phatnguoiApp.violations.typeViolation">Type Violation</label>
+          <select
+            class="form-control"
+            id="field_typeViolation"
+            data-cy="typeViolation"
+            name="typeViolation"
+            formControlName="typeViolation"
+            [compareWith]="compareTypeViolation"
+          >
+            <option [ngValue]="null"></option>
+            @for (typeViolationOption of typeViolationsSharedCollection; track $index) {
+              <option [ngValue]="typeViolationOption">{{ typeViolationOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_vehicleRegistrations" jhiTranslate="phatnguoiApp.violations.vehicleRegistrations"
+            >Vehicle Registrations</label
+          >
+          <select
+            class="form-control"
+            id="field_vehicleRegistrations"
+            data-cy="vehicleRegistrations"
+            name="vehicleRegistrations"
+            formControlName="vehicleRegistrations"
+            [compareWith]="compareVehicleRegistrations"
+          >
+            <option [ngValue]="null"></option>
+            @for (vehicleRegistrationsOption of vehicleRegistrationsSharedCollection; track $index) {
+              <option [ngValue]="vehicleRegistrationsOption">{{ vehicleRegistrationsOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

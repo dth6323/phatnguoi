@@ -1,0 +1,47 @@
+{
+  "annotations": {
+    "changelogDate": "20241117152031"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "violationTime",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "location",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "evidenceImage",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "name": "Violations",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "typeViolation",
+      "otherEntityRelationshipName": "violations",
+      "relationshipName": "typeViolation",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "vehicleRegistrations",
+      "otherEntityRelationshipName": "violations",
+      "relationshipName": "vehicleRegistrations",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}

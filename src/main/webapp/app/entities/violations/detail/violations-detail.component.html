@@ -1,0 +1,68 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (violations(); as violationsRef) {
+      <div>
+        <h2 data-cy="violationsDetailsHeading"><span jhiTranslate="phatnguoiApp.violations.detail.title">Violations</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ violationsRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="phatnguoiApp.violations.violationTime">Violation Time</span></dt>
+          <dd>
+            <span>{{ violationsRef.violationTime | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="phatnguoiApp.violations.location">Location</span></dt>
+          <dd>
+            <span>{{ violationsRef.location }}</span>
+          </dd>
+          <dt><span jhiTranslate="phatnguoiApp.violations.status">Status</span></dt>
+          <dd>
+            <span>{{ violationsRef.status }}</span>
+          </dd>
+          <dt><span jhiTranslate="phatnguoiApp.violations.evidenceImage">Evidence Image</span></dt>
+          <dd>
+            <span>{{ violationsRef.evidenceImage }}</span>
+          </dd>
+          <dt><span jhiTranslate="phatnguoiApp.violations.createdAt">Created At</span></dt>
+          <dd>
+            <span>{{ violationsRef.createdAt | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="phatnguoiApp.violations.typeViolation">Type Violation</span></dt>
+          <dd>
+            @if (violations()!.typeViolation) {
+              <div>
+                <a [routerLink]="['/type-violation', violations()!.typeViolation?.id, 'view']">{{ violationsRef.typeViolation?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="phatnguoiApp.violations.vehicleRegistrations">Vehicle Registrations</span></dt>
+          <dd>
+            @if (violations()!.vehicleRegistrations) {
+              <div>
+                <a [routerLink]="['/vehicle-registrations', violations()!.vehicleRegistrations?.id, 'view']">{{
+                  violationsRef.vehicleRegistrations?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/violations', violationsRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

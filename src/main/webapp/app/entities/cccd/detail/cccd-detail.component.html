@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (cCCD(); as cCCDRef) {
+      <div>
+        <h2 data-cy="cCCDDetailsHeading"><span jhiTranslate="phatnguoiApp.cCCD.detail.title">CCCD</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ cCCDRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="phatnguoiApp.cCCD.fullName">Full Name</span></dt>
+          <dd>
+            <span>{{ cCCDRef.fullName }}</span>
+          </dd>
+          <dt><span jhiTranslate="phatnguoiApp.cCCD.dateBirth">Date Birth</span></dt>
+          <dd>
+            <span>{{ cCCDRef.dateBirth | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="phatnguoiApp.cCCD.sex">Sex</span></dt>
+          <dd>
+            <span>{{ cCCDRef.sex }}</span>
+          </dd>
+          <dt><span jhiTranslate="phatnguoiApp.cCCD.nationality">Nationality</span></dt>
+          <dd>
+            <span>{{ cCCDRef.nationality }}</span>
+          </dd>
+          <dt><span jhiTranslate="phatnguoiApp.cCCD.placeOrigin">Place Origin</span></dt>
+          <dd>
+            <span>{{ cCCDRef.placeOrigin }}</span>
+          </dd>
+          <dt><span jhiTranslate="phatnguoiApp.cCCD.placeResidence">Place Residence</span></dt>
+          <dd>
+            <span>{{ cCCDRef.placeResidence }}</span>
+          </dd>
+          <dt><span jhiTranslate="phatnguoiApp.cCCD.dateIssue">Date Issue</span></dt>
+          <dd>
+            <span>{{ cCCDRef.dateIssue | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="phatnguoiApp.cCCD.dateExpiry">Date Expiry</span></dt>
+          <dd>
+            <span>{{ cCCDRef.dateExpiry | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="phatnguoiApp.cCCD.personalIdentification">Personal Identification</span></dt>
+          <dd>
+            <span>{{ cCCDRef.personalIdentification }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/cccd', cCCDRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>
