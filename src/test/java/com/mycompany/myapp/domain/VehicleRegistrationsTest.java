@@ -29,7 +29,7 @@ class VehicleRegistrationsTest {
     @Test
     void cCCDTest() {
         VehicleRegistrations vehicleRegistrations = getVehicleRegistrationsRandomSampleGenerator();
-        CCCD cCCDBack = getCCCDRandomSampleGenerator();
+        Cccd cCCDBack = getCCCDRandomSampleGenerator();
 
         vehicleRegistrations.setCCCD(cCCDBack);
         assertThat(vehicleRegistrations.getCCCD()).isEqualTo(cCCDBack);

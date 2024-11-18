@@ -1,7 +1,17 @@
 <div>
   <h2 id="page-heading" data-cy="ViolationsHeading">
     <span jhiTranslate="phatnguoiApp.violations.home.title">Violations</span>
-
+    <form class="input-group mb-3">
+      <span class="input-group-text">Start Date</span>
+      <input type="Date" name="startDate" class="form-control" placeholder="Date" [(ngModel)]="startDate" />
+      <span class="input-group-text">End Date</span>
+      <input type="Date" name="startDate" class="form-control" placeholder="Date" [(ngModel)]="endDate" />
+      <span class="input-group-text">Start Age</span>
+      <input type="text" name="startAge" class="form-control" placeholder="Age" [(ngModel)]="startAge" />
+      <span class="input-group-text">End Age</span>
+      <input type="text" name="endAge" class="form-control" placeholder="Age" [(ngModel)]="endAge" />
+      <button (click)="loadStatical()">Search</button>
+    </form>
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>

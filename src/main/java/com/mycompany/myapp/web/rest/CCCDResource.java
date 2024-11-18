@@ -1,7 +1,7 @@
 package com.mycompany.myapp.web.rest;
 
-import com.mycompany.myapp.domain.CCCD;
-import com.mycompany.myapp.repository.CCCDRepository;
+import com.mycompany.myapp.domain.Cccd;
+import com.mycompany.myapp.repository.CccdRepository;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -23,7 +23,7 @@ import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
 /**
- * REST controller for managing {@link com.mycompany.myapp.domain.CCCD}.
+ * REST controller for managing {@link Cccd}.
  */
 @RestController
 @RequestMapping("/api/cccds")
@@ -37,9 +37,9 @@ public class CCCDResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final CCCDRepository cCCDRepository;
+    private final CccdRepository cCCDRepository;
 
-    public CCCDResource(CCCDRepository cCCDRepository) {
+    public CCCDResource(CccdRepository cCCDRepository) {
         this.cCCDRepository = cCCDRepository;
     }
 
@@ -51,7 +51,7 @@ public class CCCDResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<CCCD> createCCCD(@RequestBody CCCD cCCD) throws URISyntaxException {
+    public ResponseEntity<Cccd> createCCCD(@RequestBody Cccd cCCD) throws URISyntaxException {
         LOG.debug("REST request to save CCCD : {}", cCCD);
         if (cCCD.getId() != null) {
             throw new BadRequestAlertException("A new cCCD cannot already have an ID", ENTITY_NAME, "idexists");
@@ -73,7 +73,7 @@ public class CCCDResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/{id}")
-    public ResponseEntity<CCCD> updateCCCD(@PathVariable(value = "id", required = false) final Long id, @RequestBody CCCD cCCD)
+    public ResponseEntity<Cccd> updateCCCD(@PathVariable(value = "id", required = false) final Long id, @RequestBody Cccd cCCD)
         throws URISyntaxException {
         LOG.debug("REST request to update CCCD : {}, {}", id, cCCD);
         if (cCCD.getId() == null) {
@@ -105,7 +105,7 @@ public class CCCDResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<CCCD> partialUpdateCCCD(@PathVariable(value = "id", required = false) final Long id, @RequestBody CCCD cCCD)
+    public ResponseEntity<Cccd> partialUpdateCCCD(@PathVariable(value = "id", required = false) final Long id, @RequestBody Cccd cCCD)
         throws URISyntaxException {
         LOG.debug("REST request to partial update CCCD partially : {}, {}", id, cCCD);
         if (cCCD.getId() == null) {
@@ -119,7 +119,7 @@ public class CCCDResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<CCCD> result = cCCDRepository
+        Optional<Cccd> result = cCCDRepository
             .findById(cCCD.getId())
             .map(existingCCCD -> {
                 if (cCCD.getFullName() != null) {
@@ -167,9 +167,9 @@ public class CCCDResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of cCCDS in body.
      */
     @GetMapping("")
-    public ResponseEntity<List<CCCD>> getAllCCCDS(@org.springdoc.core.annotations.ParameterObject Pageable pageable) {
+    public ResponseEntity<List<Cccd>> getAllCCCDS(@org.springdoc.core.annotations.ParameterObject Pageable pageable) {
         LOG.debug("REST request to get a page of CCCDS");
-        Page<CCCD> page = cCCDRepository.findAll(pageable);
+        Page<Cccd> page = cCCDRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -181,9 +181,9 @@ public class CCCDResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the cCCD, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<CCCD> getCCCD(@PathVariable("id") Long id) {
+    public ResponseEntity<Cccd> getCCCD(@PathVariable("id") Long id) {
         LOG.debug("REST request to get CCCD : {}", id);
-        Optional<CCCD> cCCD = cCCDRepository.findById(id);
+        Optional<Cccd> cCCD = cCCDRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(cCCD);
     }
 

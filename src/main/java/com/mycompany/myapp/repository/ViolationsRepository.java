@@ -21,7 +21,7 @@ public interface ViolationsRepository extends JpaRepository<Violations, Long> {
             SELECT v
             FROM Violations v
             JOIN v.vehicleRegistrations vr
-            JOIN vr.cCCD cc
+            JOIN vr.cccd cc
             WHERE (:sa IS NULL OR :ea IS NULL OR (EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM cc.dateBirth)) BETWEEN :sa AND :ea)
               AND (:d IS NULL OR v.violationTime between :a and :d )
         """

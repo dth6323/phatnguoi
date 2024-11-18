@@ -13,7 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "cccd")
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class CCCD implements Serializable {
+public class Cccd implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -50,8 +50,8 @@ public class CCCD implements Serializable {
     @Column(name = "personal_identification")
     private String personalIdentification;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cCCD")
-    @JsonIgnoreProperties(value = { "cCCD", "violations" }, allowSetters = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cccd")
+    @JsonIgnoreProperties(value = { "cccd", "violations" }, allowSetters = true)
     private Set<VehicleRegistrations> vehicleRegistrations = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -60,7 +60,7 @@ public class CCCD implements Serializable {
         return this.id;
     }
 
-    public CCCD id(Long id) {
+    public Cccd id(Long id) {
         this.setId(id);
         return this;
     }
@@ -73,7 +73,7 @@ public class CCCD implements Serializable {
         return this.fullName;
     }
 
-    public CCCD fullName(String fullName) {
+    public Cccd fullName(String fullName) {
         this.setFullName(fullName);
         return this;
     }
@@ -86,7 +86,7 @@ public class CCCD implements Serializable {
         return this.dateBirth;
     }
 
-    public CCCD dateBirth(LocalDate dateBirth) {
+    public Cccd dateBirth(LocalDate dateBirth) {
         this.setDateBirth(dateBirth);
         return this;
     }
@@ -99,7 +99,7 @@ public class CCCD implements Serializable {
         return this.sex;
     }
 
-    public CCCD sex(String sex) {
+    public Cccd sex(String sex) {
         this.setSex(sex);
         return this;
     }
@@ -112,7 +112,7 @@ public class CCCD implements Serializable {
         return this.nationality;
     }
 
-    public CCCD nationality(String nationality) {
+    public Cccd nationality(String nationality) {
         this.setNationality(nationality);
         return this;
     }
@@ -125,7 +125,7 @@ public class CCCD implements Serializable {
         return this.placeOrigin;
     }
 
-    public CCCD placeOrigin(String placeOrigin) {
+    public Cccd placeOrigin(String placeOrigin) {
         this.setPlaceOrigin(placeOrigin);
         return this;
     }
@@ -138,7 +138,7 @@ public class CCCD implements Serializable {
         return this.placeResidence;
     }
 
-    public CCCD placeResidence(String placeResidence) {
+    public Cccd placeResidence(String placeResidence) {
         this.setPlaceResidence(placeResidence);
         return this;
     }
@@ -151,7 +151,7 @@ public class CCCD implements Serializable {
         return this.dateIssue;
     }
 
-    public CCCD dateIssue(LocalDate dateIssue) {
+    public Cccd dateIssue(LocalDate dateIssue) {
         this.setDateIssue(dateIssue);
         return this;
     }
@@ -164,7 +164,7 @@ public class CCCD implements Serializable {
         return this.dateExpiry;
     }
 
-    public CCCD dateExpiry(LocalDate dateExpiry) {
+    public Cccd dateExpiry(LocalDate dateExpiry) {
         this.setDateExpiry(dateExpiry);
         return this;
     }
@@ -177,7 +177,7 @@ public class CCCD implements Serializable {
         return this.personalIdentification;
     }
 
-    public CCCD personalIdentification(String personalIdentification) {
+    public Cccd personalIdentification(String personalIdentification) {
         this.setPersonalIdentification(personalIdentification);
         return this;
     }
@@ -200,18 +200,18 @@ public class CCCD implements Serializable {
         this.vehicleRegistrations = vehicleRegistrations;
     }
 
-    public CCCD vehicleRegistrations(Set<VehicleRegistrations> vehicleRegistrations) {
+    public Cccd vehicleRegistrations(Set<VehicleRegistrations> vehicleRegistrations) {
         this.setVehicleRegistrations(vehicleRegistrations);
         return this;
     }
 
-    public CCCD addVehicleRegistrations(VehicleRegistrations vehicleRegistrations) {
+    public Cccd addVehicleRegistrations(VehicleRegistrations vehicleRegistrations) {
         this.vehicleRegistrations.add(vehicleRegistrations);
         vehicleRegistrations.setCCCD(this);
         return this;
     }
 
-    public CCCD removeVehicleRegistrations(VehicleRegistrations vehicleRegistrations) {
+    public Cccd removeVehicleRegistrations(VehicleRegistrations vehicleRegistrations) {
         this.vehicleRegistrations.remove(vehicleRegistrations);
         vehicleRegistrations.setCCCD(null);
         return this;
@@ -224,10 +224,10 @@ public class CCCD implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof CCCD)) {
+        if (!(o instanceof Cccd)) {
             return false;
         }
-        return getId() != null && getId().equals(((CCCD) o).getId());
+        return getId() != null && getId().equals(((Cccd) o).getId());
     }
 
     @Override

@@ -9,8 +9,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mycompany.myapp.IntegrationTest;
-import com.mycompany.myapp.domain.CCCD;
-import com.mycompany.myapp.repository.CCCDRepository;
+import com.mycompany.myapp.domain.Cccd;
+import com.mycompany.myapp.repository.CccdRepository;
 import jakarta.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -32,7 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 @IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser
-class CCCDResourceIT {
+class CccdResourceIT {
 
     private static final String DEFAULT_FULL_NAME = "AAAAAAAAAA";
     private static final String UPDATED_FULL_NAME = "BBBBBBBBBB";
@@ -71,7 +71,7 @@ class CCCDResourceIT {
     private ObjectMapper om;
 
     @Autowired
-    private CCCDRepository cCCDRepository;
+    private CccdRepository cCCDRepository;
 
     @Autowired
     private EntityManager em;
@@ -79,9 +79,9 @@ class CCCDResourceIT {
     @Autowired
     private MockMvc restCCCDMockMvc;
 
-    private CCCD cCCD;
+    private Cccd cCCD;
 
-    private CCCD insertedCCCD;
+    private Cccd insertedCccd;
 
     /**
      * Create an entity for this test.
@@ -89,8 +89,8 @@ class CCCDResourceIT {
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
-    public static CCCD createEntity() {
-        return new CCCD()
+    public static Cccd createEntity() {
+        return new Cccd()
             .fullName(DEFAULT_FULL_NAME)
             .dateBirth(DEFAULT_DATE_BIRTH)
             .sex(DEFAULT_SEX)
@@ -108,8 +108,8 @@ class CCCDResourceIT {
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
-    public static CCCD createUpdatedEntity() {
-        return new CCCD()
+    public static Cccd createUpdatedEntity() {
+        return new Cccd()
             .fullName(UPDATED_FULL_NAME)
             .dateBirth(UPDATED_DATE_BIRTH)
             .sex(UPDATED_SEX)
@@ -128,9 +128,9 @@ class CCCDResourceIT {
 
     @AfterEach
     public void cleanup() {
-        if (insertedCCCD != null) {
-            cCCDRepository.delete(insertedCCCD);
-            insertedCCCD = null;
+        if (insertedCccd != null) {
+            cCCDRepository.delete(insertedCccd);
+            insertedCccd = null;
         }
     }
 
@@ -146,14 +146,14 @@ class CCCDResourceIT {
                 .andReturn()
                 .getResponse()
                 .getContentAsString(),
-            CCCD.class
+            Cccd.class
         );
 
         // Validate the CCCD in the database
         assertIncrementedRepositoryCount(databaseSizeBeforeCreate);
         assertCCCDUpdatableFieldsEquals(returnedCCCD, getPersistedCCCD(returnedCCCD));
 
-        insertedCCCD = returnedCCCD;
+        insertedCccd = returnedCCCD;
     }
 
     @Test
@@ -177,7 +177,7 @@ class CCCDResourceIT {
     @Transactional
     void getAllCCCDS() throws Exception {
         // Initialize the database
-        insertedCCCD = cCCDRepository.saveAndFlush(cCCD);
+        insertedCccd = cCCDRepository.saveAndFlush(cCCD);
 
         // Get all the cCCDList
         restCCCDMockMvc
@@ -200,7 +200,7 @@ class CCCDResourceIT {
     @Transactional
     void getCCCD() throws Exception {
         // Initialize the database
-        insertedCCCD = cCCDRepository.saveAndFlush(cCCD);
+        insertedCccd = cCCDRepository.saveAndFlush(cCCD);
 
         // Get the cCCD
         restCCCDMockMvc
@@ -230,15 +230,15 @@ class CCCDResourceIT {
     @Transactional
     void putExistingCCCD() throws Exception {
         // Initialize the database
-        insertedCCCD = cCCDRepository.saveAndFlush(cCCD);
+        insertedCccd = cCCDRepository.saveAndFlush(cCCD);
 
         long databaseSizeBeforeUpdate = getRepositoryCount();
 
         // Update the cCCD
-        CCCD updatedCCCD = cCCDRepository.findById(cCCD.getId()).orElseThrow();
+        Cccd updatedCccd = cCCDRepository.findById(cCCD.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedCCCD are not directly saved in db
-        em.detach(updatedCCCD);
-        updatedCCCD
+        em.detach(updatedCccd);
+        updatedCccd
             .fullName(UPDATED_FULL_NAME)
             .dateBirth(UPDATED_DATE_BIRTH)
             .sex(UPDATED_SEX)
@@ -251,15 +251,15 @@ class CCCDResourceIT {
 
         restCCCDMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedCCCD.getId())
+                put(ENTITY_API_URL_ID, updatedCccd.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(om.writeValueAsBytes(updatedCCCD))
+                    .content(om.writeValueAsBytes(updatedCccd))
             )
             .andExpect(status().isOk());
 
         // Validate the CCCD in the database
         assertSameRepositoryCount(databaseSizeBeforeUpdate);
-        assertPersistedCCCDToMatchAllProperties(updatedCCCD);
+        assertPersistedCCCDToMatchAllProperties(updatedCccd);
     }
 
     @Test
@@ -315,43 +315,43 @@ class CCCDResourceIT {
     @Transactional
     void partialUpdateCCCDWithPatch() throws Exception {
         // Initialize the database
-        insertedCCCD = cCCDRepository.saveAndFlush(cCCD);
+        insertedCccd = cCCDRepository.saveAndFlush(cCCD);
 
         long databaseSizeBeforeUpdate = getRepositoryCount();
 
         // Update the cCCD using partial update
-        CCCD partialUpdatedCCCD = new CCCD();
-        partialUpdatedCCCD.setId(cCCD.getId());
+        Cccd partialUpdatedCccd = new Cccd();
+        partialUpdatedCccd.setId(cCCD.getId());
 
-        partialUpdatedCCCD.sex(UPDATED_SEX).placeOrigin(UPDATED_PLACE_ORIGIN).dateIssue(UPDATED_DATE_ISSUE).dateExpiry(UPDATED_DATE_EXPIRY);
+        partialUpdatedCccd.sex(UPDATED_SEX).placeOrigin(UPDATED_PLACE_ORIGIN).dateIssue(UPDATED_DATE_ISSUE).dateExpiry(UPDATED_DATE_EXPIRY);
 
         restCCCDMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, partialUpdatedCCCD.getId())
+                patch(ENTITY_API_URL_ID, partialUpdatedCccd.getId())
                     .contentType("application/merge-patch+json")
-                    .content(om.writeValueAsBytes(partialUpdatedCCCD))
+                    .content(om.writeValueAsBytes(partialUpdatedCccd))
             )
             .andExpect(status().isOk());
 
         // Validate the CCCD in the database
 
         assertSameRepositoryCount(databaseSizeBeforeUpdate);
-        assertCCCDUpdatableFieldsEquals(createUpdateProxyForBean(partialUpdatedCCCD, cCCD), getPersistedCCCD(cCCD));
+        assertCCCDUpdatableFieldsEquals(createUpdateProxyForBean(partialUpdatedCccd, cCCD), getPersistedCCCD(cCCD));
     }
 
     @Test
     @Transactional
     void fullUpdateCCCDWithPatch() throws Exception {
         // Initialize the database
-        insertedCCCD = cCCDRepository.saveAndFlush(cCCD);
+        insertedCccd = cCCDRepository.saveAndFlush(cCCD);
 
         long databaseSizeBeforeUpdate = getRepositoryCount();
 
         // Update the cCCD using partial update
-        CCCD partialUpdatedCCCD = new CCCD();
-        partialUpdatedCCCD.setId(cCCD.getId());
+        Cccd partialUpdatedCccd = new Cccd();
+        partialUpdatedCccd.setId(cCCD.getId());
 
-        partialUpdatedCCCD
+        partialUpdatedCccd
             .fullName(UPDATED_FULL_NAME)
             .dateBirth(UPDATED_DATE_BIRTH)
             .sex(UPDATED_SEX)
@@ -364,16 +364,16 @@ class CCCDResourceIT {
 
         restCCCDMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, partialUpdatedCCCD.getId())
+                patch(ENTITY_API_URL_ID, partialUpdatedCccd.getId())
                     .contentType("application/merge-patch+json")
-                    .content(om.writeValueAsBytes(partialUpdatedCCCD))
+                    .content(om.writeValueAsBytes(partialUpdatedCccd))
             )
             .andExpect(status().isOk());
 
         // Validate the CCCD in the database
 
         assertSameRepositoryCount(databaseSizeBeforeUpdate);
-        assertCCCDUpdatableFieldsEquals(partialUpdatedCCCD, getPersistedCCCD(partialUpdatedCCCD));
+        assertCCCDUpdatableFieldsEquals(partialUpdatedCccd, getPersistedCCCD(partialUpdatedCccd));
     }
 
     @Test
@@ -429,7 +429,7 @@ class CCCDResourceIT {
     @Transactional
     void deleteCCCD() throws Exception {
         // Initialize the database
-        insertedCCCD = cCCDRepository.saveAndFlush(cCCD);
+        insertedCccd = cCCDRepository.saveAndFlush(cCCD);
 
         long databaseSizeBeforeDelete = getRepositoryCount();
 
@@ -458,15 +458,15 @@ class CCCDResourceIT {
         assertThat(countBefore).isEqualTo(getRepositoryCount());
     }
 
-    protected CCCD getPersistedCCCD(CCCD cCCD) {
+    protected Cccd getPersistedCCCD(Cccd cCCD) {
         return cCCDRepository.findById(cCCD.getId()).orElseThrow();
     }
 
-    protected void assertPersistedCCCDToMatchAllProperties(CCCD expectedCCCD) {
-        assertCCCDAllPropertiesEquals(expectedCCCD, getPersistedCCCD(expectedCCCD));
+    protected void assertPersistedCCCDToMatchAllProperties(Cccd expectedCccd) {
+        assertCCCDAllPropertiesEquals(expectedCccd, getPersistedCCCD(expectedCccd));
     }
 
-    protected void assertPersistedCCCDToMatchUpdatableProperties(CCCD expectedCCCD) {
-        assertCCCDAllUpdatablePropertiesEquals(expectedCCCD, getPersistedCCCD(expectedCCCD));
+    protected void assertPersistedCCCDToMatchUpdatableProperties(Cccd expectedCccd) {
+        assertCCCDAllUpdatablePropertiesEquals(expectedCccd, getPersistedCCCD(expectedCccd));
     }
 }

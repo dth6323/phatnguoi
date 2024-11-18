@@ -61,7 +61,7 @@ public class VehicleRegistrations implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = { "vehicleRegistrations" }, allowSetters = true)
-    private CCCD cCCD;
+    private Cccd cccd;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "vehicleRegistrations")
     @JsonIgnoreProperties(value = { "typeViolation", "vehicleRegistrations" }, allowSetters = true)
@@ -238,15 +238,15 @@ public class VehicleRegistrations implements Serializable {
         this.issuedBy = issuedBy;
     }
 
-    public CCCD getCCCD() {
-        return this.cCCD;
+    public Cccd getCCCD() {
+        return this.cccd;
     }
 
-    public void setCCCD(CCCD cCCD) {
-        this.cCCD = cCCD;
+    public void setCCCD(Cccd cCCD) {
+        this.cccd = cCCD;
     }
 
-    public VehicleRegistrations cCCD(CCCD cCCD) {
+    public VehicleRegistrations cCCD(Cccd cCCD) {
         this.setCCCD(cCCD);
         return this;
     }

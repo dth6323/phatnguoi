@@ -9,13 +9,13 @@ import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
-class CCCDTest {
+class CccdTest {
 
     @Test
     void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(CCCD.class);
-        CCCD cCCD1 = getCCCDSample1();
-        CCCD cCCD2 = new CCCD();
+        TestUtil.equalsVerifier(Cccd.class);
+        Cccd cCCD1 = getCCCDSample1();
+        Cccd cCCD2 = new Cccd();
         assertThat(cCCD1).isNotEqualTo(cCCD2);
 
         cCCD2.setId(cCCD1.getId());
@@ -27,7 +27,7 @@ class CCCDTest {
 
     @Test
     void vehicleRegistrationsTest() {
-        CCCD cCCD = getCCCDRandomSampleGenerator();
+        Cccd cCCD = getCCCDRandomSampleGenerator();
         VehicleRegistrations vehicleRegistrationsBack = getVehicleRegistrationsRandomSampleGenerator();
 
         cCCD.addVehicleRegistrations(vehicleRegistrationsBack);

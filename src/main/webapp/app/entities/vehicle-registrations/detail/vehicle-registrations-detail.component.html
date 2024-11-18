@@ -67,9 +67,9 @@
           </dd>
           <dt><span jhiTranslate="phatnguoiApp.vehicleRegistrations.cCCD">C CCD</span></dt>
           <dd>
-            @if (vehicleRegistrations()!.cCCD) {
+            @if (vehicleRegistrations()!.cccd) {
               <div>
-                <a [routerLink]="['/cccd', vehicleRegistrations()!.cCCD?.id, 'view']">{{ vehicleRegistrationsRef.cCCD?.id }}</a>
+                <a [routerLink]="['/cccd', vehicleRegistrations()!.cccd?.id, 'view']">{{ vehicleRegistrationsRef.cccd?.id }}</a>
               </div>
             }
           </dd>

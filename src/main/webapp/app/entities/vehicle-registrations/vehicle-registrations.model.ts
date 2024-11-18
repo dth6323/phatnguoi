@@ -15,7 +15,7 @@ export interface IVehicleRegistrations {
   registrationDate?: dayjs.Dayjs | null;
   expirationDate?: dayjs.Dayjs | null;
   issuedBy?: string | null;
-  cCCD?: ICCCD | null;
+  cccd?: ICCCD | null;
 }
 
 export type NewVehicleRegistrations = Omit<IVehicleRegistrations, 'id'> & { id: null };

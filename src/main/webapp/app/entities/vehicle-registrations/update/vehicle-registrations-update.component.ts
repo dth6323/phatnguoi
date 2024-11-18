@@ -85,7 +85,7 @@ export class VehicleRegistrationsUpdateComponent implements OnInit {
 
     this.cCCDSSharedCollection = this.cCCDService.addCCCDToCollectionIfMissing<ICCCD>(
       this.cCCDSSharedCollection,
-      vehicleRegistrations.cCCD,
+      vehicleRegistrations.cccd,
     );
   }
 
@@ -93,7 +93,7 @@ export class VehicleRegistrationsUpdateComponent implements OnInit {
     this.cCCDService
       .query()
       .pipe(map((res: HttpResponse<ICCCD[]>) => res.body ?? []))
-      .pipe(map((cCCDS: ICCCD[]) => this.cCCDService.addCCCDToCollectionIfMissing<ICCCD>(cCCDS, this.vehicleRegistrations?.cCCD)))
+      .pipe(map((cCCDS: ICCCD[]) => this.cCCDService.addCCCDToCollectionIfMissing<ICCCD>(cCCDS, this.vehicleRegistrations?.cccd)))
       .subscribe((cCCDS: ICCCD[]) => (this.cCCDSSharedCollection = cCCDS));
   }
 }

@@ -15,6 +15,8 @@ import { DEFAULT_SORT_DATA, ITEM_DELETED_EVENT, SORT } from 'app/config/navigati
 import { IViolations } from '../violations.model';
 import { EntityArrayResponseType, ViolationsService } from '../service/violations.service';
 import { ViolationsDeleteDialogComponent } from '../delete/violations-delete-dialog.component';
+import dayjs, { Dayjs } from 'dayjs/esm';
+import { DATE_FORMAT } from 'app/config/input.constants';
 
 @Component({
   standalone: true,
@@ -36,7 +38,10 @@ export class ViolationsComponent implements OnInit {
   subscription: Subscription | null = null;
   violations?: IViolations[];
   isLoading = false;
-
+  startDate: Dayjs = dayjs('2000-01-01');
+  endDate: Dayjs = dayjs('2029-01-01');
+  startAge = '';
+  endAge = '';
   sortState = sortStateSignal({});
 
   itemsPerPage = ITEMS_PER_PAGE;
@@ -60,7 +65,27 @@ export class ViolationsComponent implements OnInit {
       )
       .subscribe();
   }
+  loadStatical(): void {
+    if (!this.startAge || !this.endAge) return;
+    this.isLoading = true;
+    this.violationsService.statical(dayjs(this.startDate), dayjs(this.endDate), this.startAge, this.endAge).subscribe({
+      next: data => {
+        this.violations = data.body ?? undefined;
+        this.isLoading = false;
+      },
+      error: err => {
+        console.error('Error fetching violations:', err);
+        this.isLoading = false;
+      },
+    });
+  }
+  onStartAgeChange(value: string): void {
+    this.startDate = dayjs(value); // Cập nhật startAge
+  }
 
+  onEndAgeChange(value: string): void {
+    this.endDate = dayjs(value); // Cập nhật endAge
+  }
   delete(violations: IViolations): void {
     const modalRef = this.modalService.open(ViolationsDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.violations = violations;

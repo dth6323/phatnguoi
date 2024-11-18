@@ -9,8 +9,8 @@ public class CCCDTestSamples {
     private static final Random random = new Random();
     private static final AtomicLong longCount = new AtomicLong(random.nextInt() + (2 * Integer.MAX_VALUE));
 
-    public static CCCD getCCCDSample1() {
-        return new CCCD()
+    public static Cccd getCCCDSample1() {
+        return new Cccd()
             .id(1L)
             .fullName("fullName1")
             .sex("sex1")
@@ -20,8 +20,8 @@ public class CCCDTestSamples {
             .personalIdentification("personalIdentification1");
     }
 
-    public static CCCD getCCCDSample2() {
-        return new CCCD()
+    public static Cccd getCCCDSample2() {
+        return new Cccd()
             .id(2L)
             .fullName("fullName2")
             .sex("sex2")
@@ -31,8 +31,8 @@ public class CCCDTestSamples {
             .personalIdentification("personalIdentification2");
     }
 
-    public static CCCD getCCCDRandomSampleGenerator() {
-        return new CCCD()
+    public static Cccd getCCCDRandomSampleGenerator() {
+        return new Cccd()
             .id(longCount.incrementAndGet())
             .fullName(UUID.randomUUID().toString())
             .sex(UUID.randomUUID().toString())

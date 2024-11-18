@@ -128,7 +128,7 @@
             </th>
             <th scope="col" jhiSortBy="cCCD.id">
               <div class="d-flex">
-                <span jhiTranslate="phatnguoiApp.vehicleRegistrations.cCCD">C CCD</span>
+                <span jhiTranslate="phatnguoiApp.vehicleRegistrations.cCCD">CCCD</span>
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
@@ -154,9 +154,9 @@
               <td>{{ vehicleRegistrations.expirationDate | formatMediumDate }}</td>
               <td>{{ vehicleRegistrations.issuedBy }}</td>
               <td>
-                @if (vehicleRegistrations.cCCD) {
+                @if (vehicleRegistrations.cccd) {
                   <div>
-                    <a [routerLink]="['/cccd', vehicleRegistrations.cCCD.id, 'view']">{{ vehicleRegistrations.cCCD.id }}</a>
+                    <a [routerLink]="['/cccd', vehicleRegistrations.cccd.id, 'view']">{{ vehicleRegistrations.cccd.id }}</a>
                   </div>
                 }
               </td>

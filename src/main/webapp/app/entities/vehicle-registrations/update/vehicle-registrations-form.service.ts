@@ -30,7 +30,7 @@ type VehicleRegistrationsFormGroupContent = {
   registrationDate: FormControl<IVehicleRegistrations['registrationDate']>;
   expirationDate: FormControl<IVehicleRegistrations['expirationDate']>;
   issuedBy: FormControl<IVehicleRegistrations['issuedBy']>;
-  cCCD: FormControl<IVehicleRegistrations['cCCD']>;
+  cCCD: FormControl<IVehicleRegistrations['cccd']>;
 };
 
 export type VehicleRegistrationsFormGroup = FormGroup<VehicleRegistrationsFormGroupContent>;
@@ -64,7 +64,7 @@ export class VehicleRegistrationsFormService {
       registrationDate: new FormControl(vehicleRegistrationsRawValue.registrationDate),
       expirationDate: new FormControl(vehicleRegistrationsRawValue.expirationDate),
       issuedBy: new FormControl(vehicleRegistrationsRawValue.issuedBy),
-      cCCD: new FormControl(vehicleRegistrationsRawValue.cCCD),
+      cCCD: new FormControl(vehicleRegistrationsRawValue.cccd),
     });
   }
 

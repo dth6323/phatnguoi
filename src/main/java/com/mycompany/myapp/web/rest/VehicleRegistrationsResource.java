@@ -63,16 +63,6 @@ public class VehicleRegistrationsResource {
             .body(vehicleRegistrations);
     }
 
-    /**
-     * {@code PUT  /vehicle-registrations/:id} : Updates an existing vehicleRegistrations.
-     *
-     * @param id the id of the vehicleRegistrations to save.
-     * @param vehicleRegistrations the vehicleRegistrations to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated vehicleRegistrations,
-     * or with status {@code 400 (Bad Request)} if the vehicleRegistrations is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the vehicleRegistrations couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
     @PutMapping("/{id}")
     public ResponseEntity<VehicleRegistrations> updateVehicleRegistrations(
         @PathVariable(value = "id", required = false) final Long id,

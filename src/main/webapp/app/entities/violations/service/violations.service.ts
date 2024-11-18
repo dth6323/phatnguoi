@@ -39,15 +39,25 @@ export class ViolationsService {
     });
   }
 
-  statical(startDate: dayjs.Dayjs, endDate: dayjs.Dayjs, startAge?: string, endAge?: string): Observable<IViolations[]> {
-    const params: any = {
+  statical(startDate: dayjs.Dayjs, endDate: dayjs.Dayjs, startAge?: any, endAge?: any): Observable<EntityArrayResponseType> {
+    const param: any = {
       a: startDate.format(DATE_FORMAT),
       d: endDate.format(DATE_FORMAT),
       sa: startAge,
       ea: endAge,
     };
-    return this.http.get<IViolations[]>(`${this.resourceUrl}/statical`, { params });
+    return this.http
+      .get<RestViolations[]>(`${this.resourceUrl}/statical`, {
+        params: param,
+        observe: 'response',
+      })
+      .pipe(
+        map(res => {
+          return this.convertResponseArrayFromServer(res);
+        }),
+      );
   }
+
   create(violations: NewViolations): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(violations);
     return this.http
