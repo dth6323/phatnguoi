@@ -2,9 +2,11 @@ package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.domain.Violations;
 import com.mycompany.myapp.repository.ViolationsRepository;
+import com.mycompany.myapp.service.ViolationsClientService;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -13,8 +15,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -33,23 +37,36 @@ public class ViolationsResource {
     private static final Logger LOG = LoggerFactory.getLogger(ViolationsResource.class);
 
     private static final String ENTITY_NAME = "violations";
+    private final ViolationsClientService violationsClientService;
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
     private final ViolationsRepository violationsRepository;
 
-    public ViolationsResource(ViolationsRepository violationsRepository) {
+    public ViolationsResource(ViolationsRepository violationsRepository, ViolationsClientService violationsClientService) {
         this.violationsRepository = violationsRepository;
+        this.violationsClientService = violationsClientService;
     }
 
-    /**
-     * {@code POST  /violations} : Create a new violations.
-     *
-     * @param violations the violations to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new violations, or with status {@code 400 (Bad Request)} if the violations has already an ID.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/search-by-plate")
+    public List<Violations> searchByLicensePlate(@RequestParam String licensePlate) {
+        return violationsClientService.searchByLicensePlate(licensePlate);
+    }
+
+    @GetMapping("/statical")
+    public List<Violations> statical(
+        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate a,
+        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate d,
+        @RequestParam(required = false) String sa,
+        @RequestParam(required = false) String ea
+    ) {
+        Integer startAge = (sa != null) ? Integer.parseInt(sa) : null;
+        Integer endAge = (ea != null) ? Integer.parseInt(ea) : null;
+        return violationsRepository.statisticViolations(a, d, startAge, endAge);
+    }
+
     @PostMapping("")
     public ResponseEntity<Violations> createViolations(@RequestBody Violations violations) throws URISyntaxException {
         LOG.debug("REST request to save Violations : {}", violations);

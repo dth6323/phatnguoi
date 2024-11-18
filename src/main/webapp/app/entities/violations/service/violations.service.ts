@@ -33,6 +33,21 @@ export class ViolationsService {
 
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/violations');
 
+  searchByLicensePlate(licensePlate: string): Observable<IViolations[]> {
+    return this.http.get<IViolations[]>(`${this.resourceUrl}/search-by-plate`, {
+      params: { licensePlate },
+    });
+  }
+
+  statical(startDate: dayjs.Dayjs, endDate: dayjs.Dayjs, startAge?: string, endAge?: string): Observable<IViolations[]> {
+    const params: any = {
+      a: startDate.format(DATE_FORMAT),
+      d: endDate.format(DATE_FORMAT),
+      sa: startAge,
+      ea: endAge,
+    };
+    return this.http.get<IViolations[]>(`${this.resourceUrl}/statical`, { params });
+  }
   create(violations: NewViolations): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(violations);
     return this.http

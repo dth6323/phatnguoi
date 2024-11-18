@@ -1,0 +1,29 @@
+<div class="container">
+  <h2>Tìm kiếm vi phạm theo biển số</h2>
+
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Nhập biển số xe" [(ngModel)]="licensePlate" />
+    <button class="btn btn-primary mt-2" (click)="searchViolations()">Tìm kiếm</button>
+  </div>
+
+  @if (violations.length > 0) {
+    <div class="mt-3">
+      <h3>Kết quả tìm kiếm</h3>
+      <ul class="list-group">
+        @for (violation of violations; track trackId(violation)) {
+          <li class="list-group-item">
+            <strong>Thời gian:</strong> {{ violation.violationTime }} <br />
+            <strong>Địa điểm:</strong> {{ violation.location }} <br />
+            <strong>Trạng thái:</strong> {{ violation.status }} <br />
+            <video controls>
+              <source
+                src="http://localhost:9003/api/v1/buckets/test/objects/download?prefix={{ violation.evidenceImage }}.mp4"
+                type="video/mp4"
+              />
+            </video>
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</div>
