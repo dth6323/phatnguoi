@@ -168,6 +168,11 @@ spring:
   output:
     ansi:
       console-available: true
+minio:
+  url: http://localhost:9003
+  accessKey: vSQZe8I97omGsgBUau3v
+  secretKey: OtV1LYhUiUi7ABXtEF3RXE3p2avwzA9t5XlywBYA
+  bucket: project1
 
 server:
   servlet:
