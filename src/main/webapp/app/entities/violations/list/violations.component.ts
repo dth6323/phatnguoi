@@ -44,6 +44,7 @@ export class ViolationsComponent implements OnInit {
   endAge = '';
   sortState = sortStateSignal({});
 
+  responseData: any;
   itemsPerPage = ITEMS_PER_PAGE;
   totalItems = 0;
   page = 1;

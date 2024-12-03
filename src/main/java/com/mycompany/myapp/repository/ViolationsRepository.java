@@ -32,4 +32,12 @@ public interface ViolationsRepository extends JpaRepository<Violations, Long> {
         @Param("sa") Integer startAge,
         @Param("ea") Integer endAge
     );
+
+    @Query(
+        value = """
+                    Select vr.id from VehicleRegistrations vr
+                    where  vr.vehicleNumber = :a
+        """
+    )
+    Integer checkVr(@Param("a") String plate);
 }

@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, map, BehaviorSubject } from 'rxjs';
 
 import dayjs from 'dayjs/esm';
 
@@ -28,17 +28,28 @@ export type EntityArrayResponseType = HttpResponse<IViolations[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ViolationsService {
+  protected detectionData = new BehaviorSubject<any>(null);
+  protected detectionData$ = this.detectionData.asObservable();
   protected http = inject(HttpClient);
   protected applicationConfigService = inject(ApplicationConfigService);
 
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/violations');
-
+  private apiUrl = 'http://127.0.0.1:5000/get_vehicle_info';
+  detect(file: File): Observable<any[]> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<any[]>(this.apiUrl, formData);
+  }
+  checkvr(licensePlate: string): Observable<any> {
+    return this.http.get<any>(`${this.resourceUrl}/checkvr`, {
+      params: { licensePlate },
+    });
+  }
   searchByLicensePlate(licensePlate: string): Observable<IViolations[]> {
     return this.http.get<IViolations[]>(`${this.resourceUrl}/search-by-plate`, {
       params: { licensePlate },
     });
   }
-
   statical(startDate: dayjs.Dayjs, endDate: dayjs.Dayjs, startAge?: any, endAge?: any): Observable<EntityArrayResponseType> {
     const param: any = {
       a: startDate.format(DATE_FORMAT),

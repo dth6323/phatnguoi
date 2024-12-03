@@ -37,9 +37,9 @@ public class FileService {
         minioClient.putObject(
             PutObjectArgs.builder()
                 .bucket(bucketName)
-                .object(file.getOriginalFilename()) // Tên file
-                .stream(file.getInputStream(), file.getSize(), -1) // Dữ liệu
-                .contentType(file.getContentType()) // Loại file
+                .object(file.getOriginalFilename())
+                .stream(file.getInputStream(), file.getSize(), -1)
+                .contentType(file.getContentType())
                 .build()
         );
         return minioConfig.getUrl() + "/" + bucketName + "/" + file.getOriginalFilename();

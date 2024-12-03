@@ -38,6 +38,22 @@ const violationsRoute: Routes = [
     canActivate: [UserRouteAccessService],
   },
   {
+    path: 'uploads',
+    loadComponent: () => import('./uploads/uploads.component').then(m => m.UploadsComponent),
+    resolve: {
+      violations: ViolationsResolve,
+    },
+    canActivate: [UserRouteAccessService],
+  },
+  {
+    path: 'detect',
+    loadComponent: () => import('./detect/detect.components').then(m => m.DetectComponent),
+    resolve: {
+      violations: ViolationsResolve,
+    },
+    canActivate: [UserRouteAccessService],
+  },
+  {
     path: ':search',
     loadComponent: () => import('./search/violations-search.component').then(m => m.YourSearchComponent),
     resolve: {

@@ -1,7 +1,9 @@
 package com.mycompany.myapp.repository;
 
 import com.mycompany.myapp.domain.VehicleRegistrations;
+import java.time.LocalDate;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**

@@ -64,6 +64,8 @@ export class ViolationsUpdateComponent implements OnInit {
     if (violations.id !== null) {
       this.subscribeToSaveResponse(this.violationsService.update(violations));
     } else {
+      // eslint-disable-next-line no-console
+      console.log('abaafaf', violations);
       this.subscribeToSaveResponse(this.violationsService.create(violations));
     }
   }

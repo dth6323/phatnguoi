@@ -49,6 +49,11 @@ public class ViolationsResource {
         this.violationsClientService = violationsClientService;
     }
 
+    @GetMapping("/checkvr")
+    public Integer check(@RequestParam String licensePlate) {
+        return violationsRepository.checkVr(licensePlate);
+    }
+
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/search-by-plate")
     public List<Violations> searchByLicensePlate(@RequestParam String licensePlate) {
@@ -79,16 +84,6 @@ public class ViolationsResource {
             .body(violations);
     }
 
-    /**
-     * {@code PUT  /violations/:id} : Updates an existing violations.
-     *
-     * @param id the id of the violations to save.
-     * @param violations the violations to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated violations,
-     * or with status {@code 400 (Bad Request)} if the violations is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the violations couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
     @PutMapping("/{id}")
     public ResponseEntity<Violations> updateViolations(
         @PathVariable(value = "id", required = false) final Long id,

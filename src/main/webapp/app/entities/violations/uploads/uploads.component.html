@@ -1,0 +1,14 @@
+<div>
+  <h1>Chọn và Xem Video</h1>
+  <input type="file" (change)="onFileSelected($event)" accept="video/*" />
+  <br />
+  @if (videoSrc) {
+    <video #video controls width="640">
+      <source [src]="videoSrc" type="video/mp4" />
+      Trình duyệt của bạn không hỗ trợ video.
+    </video>
+    <canvas #canvas style="position: absolute; top: 0; left: 0"></canvas>
+    <button (click)="onDetect()">Detect</button>
+  }
+</div>
+<script src="../webapp/assets/libs/whammy.js"></script>

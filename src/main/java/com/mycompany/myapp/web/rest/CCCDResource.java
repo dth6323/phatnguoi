@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -43,13 +44,7 @@ public class CCCDResource {
         this.cCCDRepository = cCCDRepository;
     }
 
-    /**
-     * {@code POST  /cccds} : Create a new cCCD.
-     *
-     * @param cCCD the cCCD to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new cCCD, or with status {@code 400 (Bad Request)} if the cCCD has already an ID.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @PostMapping("")
     public ResponseEntity<Cccd> createCCCD(@RequestBody Cccd cCCD) throws URISyntaxException {
         LOG.debug("REST request to save CCCD : {}", cCCD);
@@ -72,6 +67,8 @@ public class CCCDResource {
      * or with status {@code 500 (Internal Server Error)} if the cCCD couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Cccd> updateCCCD(@PathVariable(value = "id", required = false) final Long id, @RequestBody Cccd cCCD)
         throws URISyntaxException {
@@ -104,6 +101,8 @@ public class CCCDResource {
      * or with status {@code 500 (Internal Server Error)} if the cCCD couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<Cccd> partialUpdateCCCD(@PathVariable(value = "id", required = false) final Long id, @RequestBody Cccd cCCD)
         throws URISyntaxException {
@@ -166,6 +165,8 @@ public class CCCDResource {
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of cCCDS in body.
      */
+
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @GetMapping("")
     public ResponseEntity<List<Cccd>> getAllCCCDS(@org.springdoc.core.annotations.ParameterObject Pageable pageable) {
         LOG.debug("REST request to get a page of CCCDS");
@@ -180,6 +181,8 @@ public class CCCDResource {
      * @param id the id of the cCCD to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the cCCD, or with status {@code 404 (Not Found)}.
      */
+
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<Cccd> getCCCD(@PathVariable("id") Long id) {
         LOG.debug("REST request to get CCCD : {}", id);
@@ -193,6 +196,8 @@ public class CCCDResource {
      * @param id the id of the cCCD to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
+
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCCCD(@PathVariable("id") Long id) {
         LOG.debug("REST request to delete CCCD : {}", id);
